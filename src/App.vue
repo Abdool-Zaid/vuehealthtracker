@@ -3,6 +3,7 @@
     <v-navigation-drawer
       v-model="drawer"
       app
+      
     >
     <v-list shaped>
       <v-subheader>REPORTS</v-subheader>
@@ -13,6 +14,8 @@
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
+          link :to="item.to"
+          @click="dismisModal()"
         >
           <v-list-item-icon>
             <v-icon v-text="item.icon"></v-icon>
@@ -26,7 +29,7 @@
     </v-navigation-drawer>
 
     <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="drawer = !drawer" id="navToggle"></v-app-bar-nav-icon>
 
       <v-toolbar-title>Application</v-toolbar-title>
     </v-app-bar>
@@ -43,14 +46,19 @@ export default {
   data: () => ({ drawer: null, 
     selectedItem: 1,
       items: [
-        { text: 'home', icon: 'mdi-finance' },
-        { text: 'dashboard', icon: 'mdi-toolbox-outline' },
-        { text: 'user', icon: 'mdi-weight-lifter' },
-        { text: 'messages', icon: 'mdi-forum' },
-        { text: 'settings', icon: 'mdi-application-cog' },
-        { text: 'help', icon: 'mdi-help-network-outline' },
+        { text: 'home', icon: 'mdi-finance', to: "/" },
+        { text: 'dashboard', icon: 'mdi-toolbox-outline', to: "/about"},
+        { text: 'user', icon: 'mdi-weight-lifter', to: "/User"  },
+        { text: 'messages', icon: 'mdi-forum', to: "/Messages"  },
+        { text: 'settings', icon: 'mdi-application-cog', to: "/Settings"  },
+        { text: 'help', icon: 'mdi-help-network-outline', to: "/Help"  },
       ],
   }),
- 
+ methods:{
+  dismisModal(){
+        let clickEvent = new Event('click');
+        document.querySelector('#navToggle').dispatchEvent(clickEvent)
+},
+ }
 };
 </script>
