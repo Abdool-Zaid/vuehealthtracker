@@ -1,55 +1,56 @@
 <template>
-  <v-app>
-    <v-app-bar
+   <v-app id="inspire">
+    <v-navigation-drawer
+      v-model="drawer"
       app
-      color="primary"
-      dark
     >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
+    <v-list shaped>
+      <v-subheader>REPORTS</v-subheader>
+      <v-list-item-group
+        v-model="selectedItem"
+        color="primary"
       >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+        <v-list-item
+          v-for="(item, i) in items"
+          :key="i"
+        >
+          <v-list-item-icon>
+            <v-icon v-text="item.icon"></v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.text"></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
+    </v-navigation-drawer>
+
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Application</v-toolbar-title>
     </v-app-bar>
 
     <v-main>
-      <router-view/>
-    </v-main>
-  </v-app>
-</template>
+<router-view></router-view>  
+  </v-main>
+  </v-app></template>
 
 <script>
 
 export default {
   name: 'App',
-
-  data: () => ({
-    //
+  data: () => ({ drawer: null, 
+    selectedItem: 1,
+      items: [
+        { text: 'home', icon: 'mdi-finance' },
+        { text: 'dashboard', icon: 'mdi-toolbox-outline' },
+        { text: 'user', icon: 'mdi-weight-lifter' },
+        { text: 'messages', icon: 'mdi-forum' },
+        { text: 'settings', icon: 'mdi-application-cog' },
+        { text: 'help', icon: 'mdi-help-network-outline' },
+      ],
   }),
+ 
 };
 </script>
